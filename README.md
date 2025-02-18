@@ -10,14 +10,17 @@ This repository contains the source code for controlling an inverted pendulum.
 <!--![pendulum](document/figure/pendulum.jpg)-->
 
 ## Contributors
+- [Tatsuya Shiotsuka](https://github.com/SHIO777)
+  - Code maintain
+  - Control algorithm develop (see [src](src/) folder)
+  - Documentation Manage
+- [Shodai Hirayama](https://github.com/sho-da)
+  - Mechanical Design
+  - Control Algorithm Develop (see [src](src/) folder)
+  - Electronic Circuit Design
+- [Katoh Sohta](https://github.com/KATOHSOHTA)
+  - Electronic Circuit Design
 
-| Role                          | Name  |
-|-------------------------------|------|
-| Code Maintain               | [Tatsuya Shiotsuka](https://github.com/SHIO777) |
-| Electronic Circuit Design   | [Katoh Sohta](https://github.com/KATOHSOHTA), [Shodai Hirayama](https://github.com/sho-da)   |
-| Mechanical Design           | [Shodai Hirayama](https://github.com/sho-da)    |
-| Control Algorithm Develop   | [Tatsuya Shiotsuka](https://github.com/SHIO777), [Shodai Hirayama](https://github.com/sho-da)  |
-| Documentation Manage         | [Tatsuya Shiotsuka](https://github.com/SHIO777) |
 
 
 ## Setup
