@@ -9,12 +9,12 @@ This repository contains the source code for controlling an inverted pendulum.
 
 <!--![pendulum](document/figure/pendulum.jpg)-->
 
-## Responsibilities
+## Contributors
 
 | Role                          | Name  |
 |-------------------------------|------|
 | Code Maintainer               | [Tatsuya Shiotsuka](https://github.com/SHIO777) |
-| Electronic Circuit Designer   | [Katoh Sohta](https://github.com/KATOHSOHTA)    |
+| Electronic Circuit Designer   | [Katoh Sohta](https://github.com/KATOHSOHTA), [Shodai Hirayama](https://github.com/sho-da)   |
 | Mechanical Designer           | [Shodai Hirayama](https://github.com/sho-da)    |
 | Control Algorithm Developer   | [Tatsuya Shiotsuka](https://github.com/SHIO777), [Shodai Hirayama](https://github.com/sho-da)  |
 | Documentation Manager         | [Tatsuya Shiotsuka](https://github.com/SHIO777) |
