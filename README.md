@@ -9,14 +9,22 @@ This repository contains the source code for controlling an inverted pendulum.
 
 <!--![pendulum](document/figure/pendulum.jpg)-->
 
+## Responsibilities
 
+| Role                          | Name  |
+|-------------------------------|------|
+| Code Maintainer               | [Tatsuya Shiotsuka](https://github.com/SHIO777) |
+| Electronic Circuit Designer   | [Katoh Sohta](https://github.com/KATOHSOHTA)    |
+| Mechanical Designer           | [Shodai Hirayama](https://github.com/sho-da)    |
+| Control Algorithm Developer   | [Tatsuya Shiotsuka](https://github.com/SHIO777), [Shodai Hirayama](https://github.com/sho-da)  |
+| Documentation Manager         | [Tatsuya Shiotsuka](https://github.com/SHIO777) |
 
 
 ## Setup
-## Ubuntu 20.04
+### Ubuntu 20.04
 Install Ubuntu 20.04 on Raspberry Pi
 
-### Build
+#### Build
 
 ```
 cd ~/
@@ -25,5 +33,5 @@ cd ~/gcl-pendulum
 source Tools/setup.sh
 ```
 
-## More detail
+### More detail
 Please check instruction in [wiki](https://github.com/ku-gcl/gcl-pendulum/wiki/gcl%E2%80%90pendulum%E2%80%90wiki).
