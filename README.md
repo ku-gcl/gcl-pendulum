@@ -37,4 +37,4 @@ source Tools/setup.sh
 ```
 
 ### More detail
-Please check instruction in [wiki](https://github.com/ku-gcl/gcl-pendulum/wiki/gcl%E2%80%90pendulum%E2%80%90wiki).
+Please check instruction in [wiki](https://github.com/ku-gcl/gcl-pendulum/wiki/Overview).
