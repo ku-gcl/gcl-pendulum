@@ -58,7 +58,7 @@ plot_and_save("elapsed_time", "theta_w_dot", "theta_w_dot_kf", "Wheel angular ve
 
 # log_motor_valueの時間履歴をプロット
 plt.figure()
-plt.plot(df["elapsed_time"], df["log_motor_value"], label="log_motor_value", color='g')
+plt.plot(df["elapsed_time"].to_numpy(), df["log_motor_value"].to_numpy(), label="log_motor_value", color='g')
 plt.xlabel("elapsed_time")
 plt.ylabel("Control input [V]")
 plt.legend()
