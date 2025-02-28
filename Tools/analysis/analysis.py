@@ -51,10 +51,10 @@ def plot_and_save(x, y, y_kf, ylabel, filename):
     plt.close()
 
 # 各プロット
-plot_and_save("elapsed_time", "theta_p", "theta_p_kf", "Attitude angle [rad]", "theta_p_vs_kf.pdf")
-plot_and_save("elapsed_time", "theta_p_dot", "theta_p_dot_kf", "Attitude angular vel. [rad/s]", "theta_p_dot_vs_kf.pdf")
-plot_and_save("elapsed_time", "theta_w", "theta_w_kf", "Wheel angle [rad]", "theta_w_vs_kf.pdf")
-plot_and_save("elapsed_time", "theta_w_dot", "theta_w_dot_kf", "Wheel angular vel. [rad/s]", "theta_w_dot_vs_kf.pdf")
+plot_and_save("elapsed_time", "theta_p", "theta_p_kf", "Attitude angle [deg]", "theta_p_vs_kf.pdf")
+plot_and_save("elapsed_time", "theta_p_dot", "theta_p_dot_kf", "Attitude angular vel. [deg/s]", "theta_p_dot_vs_kf.pdf")
+plot_and_save("elapsed_time", "theta_w", "theta_w_kf", "Wheel angle [deg]", "theta_w_vs_kf.pdf")
+plot_and_save("elapsed_time", "theta_w_dot", "theta_w_dot_kf", "Wheel angular vel. [deg/s]", "theta_w_dot_vs_kf.pdf")
 
 # log_motor_valueの時間履歴をプロット
 plt.figure()
