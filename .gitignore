@@ -58,3 +58,7 @@ CATKIN_IGNORE
 .DS_Store
 
 .vscode
+
+
+# gcl-pendulum
+Tools/analysis/figure/*
