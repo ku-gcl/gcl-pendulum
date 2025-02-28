@@ -43,6 +43,6 @@ sudo systemctl enable pendulum.service
 
 # Compile
 cd ~/gcl-pendulum
-mkdir bin
+mkdir -p bin
 g++ -std=c++17 -o ~/gcl-pendulum/bin/PENDULUM ~/gcl-pendulum/src/*.cpp -lpigpiod_if2 -lrt -pthread
 g++ -o ~/gcl-pendulum/bin/PENDULUM_CLEANUP ~/gcl-pendulum/Tools/cleanup.cpp -lpigpiod_if2 -lrt
