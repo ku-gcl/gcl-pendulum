@@ -1,10 +1,10 @@
 [Unit]
 Description=Execution pendulum auto start script
-# After=network.target
+After=network.target
 
 [Service]
 ExecStart=/usr/bin/python3 pendulum_auto_start_script.py
-WorkingDirectory=/home/ubuntu/gcl-pendulum/Tools
+WorkingDirectory=%h/gcl-pendulum/Tools
 
 [Install]
 WantedBy=multi-user.target

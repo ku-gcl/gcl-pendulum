@@ -37,7 +37,12 @@ sudo cp Tools/pendulum.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable pendulum.service
 
+# sudo systemctl start pendulum.service
+# sudo systemctl status pendulum.service
+
 
 # Compile
-g++ -std=c++17 -o /home/ubuntu/gcl-pendulum/bin/PENDULUM /home/ubuntu/gcl-pendulum/src/*.cpp -lpigpiod_if2 -lrt -pthread
-g++ -o /home/ubuntu/gcl-pendulum/bin/PENDULUM_CLEANUP /home/ubuntu/gcl-pendulum/Tools/cleanup.cpp -lpigpiod_if2 -lrt
+cd ~/gcl-pendulum
+mkdir bin
+g++ -std=c++17 -o ~/gcl-pendulum/bin/PENDULUM ~/gcl-pendulum/src/*.cpp -lpigpiod_if2 -lrt -pthread
+g++ -o ~/gcl-pendulum/bin/PENDULUM_CLEANUP ~/gcl-pendulum/Tools/cleanup.cpp -lpigpiod_if2 -lrt
