@@ -41,7 +41,7 @@ def plot_and_save(x, y, y_kf, ylabel, filename):
     plt.figure()
     plt.plot(df[x].to_numpy(), df[y].to_numpy(), label=y, color='b')
     plt.plot(df[x].to_numpy(), df[y_kf].to_numpy(), label=y_kf, color='r', linestyle='dashed')
-    plt.xlabel(x)
+    plt.xlabel("Time [s]")
     plt.ylabel(ylabel)
     plt.legend()
     plt.grid()
@@ -59,7 +59,7 @@ plot_and_save("elapsed_time", "theta_w_dot", "theta_w_dot_kf", "Wheel angular ve
 # log_motor_valueの時間履歴をプロット
 plt.figure()
 plt.plot(df["elapsed_time"].to_numpy(), df["log_motor_value"].to_numpy(), label="log_motor_value", color='g')
-plt.xlabel("elapsed_time")
+plt.xlabel("Time [s]")
 plt.ylabel("Control input [V]")
 plt.legend()
 plt.grid()
