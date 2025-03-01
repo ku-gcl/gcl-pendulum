@@ -15,10 +15,15 @@ pend = InvertedPendulum()
 pend.calc_discrete_system()
 
 P, L, G = pend.lqr(Q, R)
+A_BK = pend.Ax + np.dot(pend.Bx, G)
+eigen_value, eigen_vector = pend.eig(A_BK)
 
 pole = L
 F = pend.acker(L)
 
+print("--------")
+print(eigen_value)
+print("--------")
 print(G)
 print("--------")
 print(F)
