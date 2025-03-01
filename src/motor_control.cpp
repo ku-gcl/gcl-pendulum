@@ -8,15 +8,15 @@
 void motor_driver_init(int pi) {
     gpio_write(pi, IN1, 0);
     gpio_write(pi, IN2, 0);
-    set_PWM_frequency(pi, PWM, 10000);
+    set_PWM_frequency(pi, PWM, PWM_FREQ);
     set_PWM_range(pi, PWM, 100);
     set_PWM_dutycycle(pi, PWM, 0);
 
-    set_PWM_frequency(pi, IN1, 10000);
+    set_PWM_frequency(pi, IN1, PWM_FREQ);
     set_PWM_range(pi, IN1, 100);
     set_PWM_dutycycle(pi, IN1, 0);
 
-    set_PWM_frequency(pi, IN2, 10000);
+    set_PWM_frequency(pi, IN2, PWM_FREQ);
     set_PWM_range(pi, IN2, 100);
     set_PWM_dutycycle(pi, IN2, 0);
 }

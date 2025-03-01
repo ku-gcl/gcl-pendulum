@@ -15,6 +15,7 @@ const int pin2 = 23;
 const int IN1 = 6;
 const int IN2 = 5;
 const int PWM = 12;
+const int PWM_FREQ = 10000; // PWM周波数をHzで設定
 const int LED_R = 17;
 const int LED_Y = 27;
 const int LED_G = 22;
