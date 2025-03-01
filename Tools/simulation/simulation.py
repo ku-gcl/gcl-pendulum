@@ -25,7 +25,7 @@ theta_0 = 20 #degree
 x = np.array( [[theta_0 * math.pi / 180], [0], [0], [0]] )
 
 #total number of the step
-num = 300
+num = 1000
 
 #variables
 time = []
