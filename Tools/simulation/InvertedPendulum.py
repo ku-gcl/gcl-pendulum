@@ -67,7 +67,7 @@ class InvertedPendulum:
         # moment of inertia of the rotator
         self.Im = 0.5 * self.m_rotator * self.r_rotator ** 2
 
-        # LQR パラメータ
+        # LQRパラメータ
         self.Q = np.diag([10, 10, 10, 10])
         self.R = 100.0
         
@@ -155,10 +155,13 @@ class InvertedPendulum:
         
         
     def calc_discrete_system(self):
+        self.calc_continous_system()
+        
         # discrete
         Ts = 0.01 # [s]
         A = self.A
         B = self.B
+        C = self.C
         
         #Ax = I + AT + (AT)^2/2! + ... (5th order approximation)
         Ax = np.zeros( (len(A), len(A[0])) )
