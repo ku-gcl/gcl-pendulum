@@ -152,9 +152,12 @@ int main() {
         return 1;
     }
 
+    // 姿勢角が45度以上(=pi/4)になったらモーター出力停止するフラグ
+    bool is_motor_update = 1;
+
     auto start = std::chrono::system_clock::now();
 
-    while (true) {
+    while (is_motor_update) {
         auto loop_start = std::chrono::system_clock::now();
 
         // main
@@ -166,10 +169,9 @@ int main() {
         kalman_filter_update();
 
         // for safety
-        // エンコーダの回転数が2回転以上(=2pi*2)回転したらモーター出力停止
-        // bool motor_update = (abs(y[2][0]) < 13);
-        bool motor_update = 1;
-        motor_control_update(motor_update);
+        // 姿勢角がMAX_INCLINATION [rad]を超えたらchromモーター出力停止
+        is_motor_update = (abs(y[0][0]) < MAX_INCLINATION);
+        motor_control_update(is_motor_update);
 
         //=========================================================
         // Log data

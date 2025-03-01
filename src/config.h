@@ -19,6 +19,8 @@ const int PWM_FREQ = 40000; // PWM周波数をHzで設定
 const int LED_R = 17;
 const int LED_Y = 27;
 const int LED_G = 22;
+// 姿勢角がMAX_INCLINATION [rad] 以上になったら制御停止
+const float MAX_INCLINATION = PI / 12;
 extern std::string LOG_DATA_DIR;
 
 extern int sample_num;
