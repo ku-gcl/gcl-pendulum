@@ -1,4 +1,5 @@
 #include <chrono>
+#include <fstream>
 #include <iomanip> // std::setprecision
 #include <iostream>
 #include <pigpiod_if2.h>
@@ -57,6 +58,25 @@ void send_udp_packet(int sockfd, struct sockaddr_in &servaddr,
     sendto(sockfd, data, strlen(data), 0, (struct sockaddr *)&servaddr,
            sizeof(servaddr));
 }
+
+void loadGainFromFile(const std::string &filename) {
+    std::ifstream file(filename);
+    if (!file) {
+        std::cerr << "Error: ファイル " << filename << " を開けませんでした。"
+                  << std::endl;
+        return;
+    }
+
+    for (int i = 0; i < 4; ++i) {
+        if (!(file >> Gain[i])) {
+            std::cerr << "Error: データの読み込みに失敗しました。" << std::endl;
+            break;
+        }
+    }
+
+    file.close();
+}
+
 // ************************************************************
 
 void setup() {
@@ -86,6 +106,9 @@ void setup() {
              theta_variance);
     gyr_init(pi, bus_gyr, sample_num, meas_interval, theta_dot_mean,
              theta_dot_variance);
+
+    // gainの読み込み
+    loadGainFromFile("../param/gain.txt");
 
     encoder_value = 0;
     motor_driver_init(pi);

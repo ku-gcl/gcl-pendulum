@@ -62,3 +62,4 @@ CATKIN_IGNORE
 
 # gcl-pendulum
 Tools/analysis/figure/*
+param/*
