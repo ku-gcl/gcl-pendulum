@@ -16,6 +16,9 @@ sudo apt install -y net-tools
 # Install g++ and make
 sudo apt install -y g++ make
 
+# Install json for C++ package
+sudo apt install -y nlohmann-json3-dev
+
 # Install pigpio
 cd ~/
 git clone https://github.com/joan2937/pigpio.git

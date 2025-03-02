@@ -18,7 +18,7 @@ const double deg2rad = PI / 180.0;
 // フォルダ名は最後に"/"を付けること
 const std::string BASE_DIR = "/home/ubuntu/gcl-pendulum";
 const std::string LOG_DATA_DIR = BASE_DIR + "/data/";
-const std::string PARAM_DATA_DIR = BASE_DIR + "/param/gain.txt";
+const std::string PARAM_DATA_DIR = BASE_DIR + "/param/gain.json";
 
 int encoder_update_rate = 25; // usec
 int encoder_resolution = 100;

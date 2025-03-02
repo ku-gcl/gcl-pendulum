@@ -1,34 +1,50 @@
+import json
 from InvertedPendulum import InvertedPendulum
 import numpy as np
 
-# pip install control
-# python3 calculate_gain.py
-
-
-Q = np.array([[10, 0, 0, 0], 
-              [0, 10, 0 ,0], 
-              [0, 0, 1, 0], 
-              [0, 0, 0, 1]])
+# LQR のパラメータ
+Q = np.diag([10, 10, 1, 1])
 R = 100.0
 
 pend = InvertedPendulum()
 pend.calc_discrete_system()
 
+# LQR 計算
 P, L, G = pend.lqr(Q, R)
+
+# 安定化システムの固有値計算
 A_BK = pend.Ad + np.dot(pend.Bd, G)
 eigen_value, eigen_vector = pend.eig(A_BK)
 
-pole = L
-F = pend.acker(L)
+# 複素数を実数・虚数に分解
+eigen_value_serializable = [[ev.real, ev.imag] for ev in eigen_value]
 
-print("--------")
-print(eigen_value)
-print("--------")
+print("**********************************")
+print("*        Calculation Result      *")
+print("**********************************")
+print("LQR Weight")
+print("Q = " + ", ".join(map(str, np.diag(Q))))
+print("R = " + "{}".format(R))
+print("")
+print("----------------------------------")
+print("Gain")
 print(G)
-print("--------")
-print(F)
+print("")
+print("----------------------------------")
+print("Eigenvalue of the stable system")
+print(", ".join(map(str, eigen_value)))
+print("")
+print("----------------------------------")
 
-# TODO: gain.txtの出力
-# 出力するのはQd, RdではなくQ, Rでよいのか？
-# type=lqr: Q, R, G
-# type=pole: pole, G
+# JSON データを作成
+gain_data = {
+    "type": "LQR",
+    "Q": np.diag(Q).tolist(),  # 対角成分をリスト化
+    "R": R,
+    "Eigenvalue": eigen_value_serializable,  # 複素数を実数・虚数のリストに変換
+    "Gain": G.flatten().tolist()  # 1D 配列に変換してリスト化
+}
+
+# JSON ファイルに保存
+with open("../../param/gain.json", "w") as f:
+    json.dump(gain_data, f, indent=4, separators=(",", ": "))

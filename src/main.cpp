@@ -11,6 +11,7 @@
 #include <fstream>
 #include <iomanip> // std::setprecision
 #include <iostream>
+#include <nlohmann/json.hpp>
 #include <pigpiod_if2.h>
 #include <sstream> // std::ostringstream
 #include <thread>
@@ -29,6 +30,8 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <unistd.h>
+
+using json = nlohmann::json;
 
 std::thread thread1;
 std::thread thread2;
@@ -75,15 +78,40 @@ void loadGainFromFile(const std::string &filename) {
                   << std::endl;
         return;
     }
+    try {
+        json gain_json;
+        file >> gain_json;
 
-    for (int i = 0; i < 4; ++i) {
-        if (!(file >> Gain[i])) {
-            std::cerr << "Error: データの読み込みに失敗しました。" << std::endl;
-            break;
+        // std::cout << "File: ";
+        // std::cout << gain_json << " ";
+
+        std::string type = gain_json["type"];
+        std::vector<double> Q = gain_json["Q"];
+        double R = gain_json["R"];
+
+        // Eigenvalue は [real, imag] の配列なのでペアに変換
+        std::vector<std::pair<double, double>> Eigenvalue;
+        for (const auto &ev : gain_json["Eigenvalue"]) {
+            Eigenvalue.emplace_back(ev[0], ev[1]); // (real, imag) のペア
         }
-    }
 
-    file.close();
+        // Gain の値を std::vector<double> で一時的に取得
+        std::vector<double> gain_vector =
+            gain_json["Gain"].get<std::vector<double>>();
+
+        // `Gain` (float[4]) にコピー
+        if (gain_vector.size() == 4) {
+            for (size_t i = 0; i < 4; ++i) {
+                Gain[i] = static_cast<float>(gain_vector[i]);
+            }
+        } else {
+            std::cerr << "Error: Gain のサイズが 4 ではありません。"
+                      << std::endl;
+        }
+
+    } catch (const json::exception &e) {
+        std::cerr << "JSON パースエラー: " << e.what() << std::endl;
+    }
 }
 
 // ************************************************************
@@ -128,8 +156,6 @@ void setup() {
 
     // CSV ファイルのオープン
     createDirectoryIfNotExists(LOG_DATA_DIR);
-    // std::string filename =
-    //     LOG_DATA_DIR + "log_" + getCurrentDateTime() + ".csv";
     // ファイル名を構築
     std::ostringstream filenameStream;
     filenameStream << LOG_DATA_DIR << "log_" << getCurrentDateTime() << "_Gain_"
