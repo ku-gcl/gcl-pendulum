@@ -1,6 +1,6 @@
 //=========================================================
 // Inverted Pendulum with Kalman Filter
-// MPU board:  NUCLEO-F401RE
+// MPU board:  Raspberry Pi 4 Model B
 // Accelerometer + Gyro sensor: BMX055
 // Motor driver: TB67H450 x 2
 // 2019/03/01  N. Beppu
