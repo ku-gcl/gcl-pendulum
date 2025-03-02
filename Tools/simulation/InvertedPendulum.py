@@ -163,27 +163,27 @@ class InvertedPendulum:
         B = self.B
         C = self.C
         
-        #Ax = I + AT + (AT)^2/2! + ... (5th order approximation)
-        Ax = np.zeros( (len(A), len(A[0])) )
+        #Ad = I + AT + (AT)^2/2! + ... (5th order approximation)
+        Ad = np.zeros( (len(A), len(A[0])) )
         temp = np.eye(len(A))
         for i in range(10):
-        	Ax = Ax + temp / math.factorial(i)
+        	Ad = Ad + temp / math.factorial(i)
         	temp = np.dot(temp, (A*Ts))
         
-        #Bx = {IT + AT^2/2! + A^2T^3/3! + ...}B (5th order approximation)
+        #Bd = {IT + AT^2/2! + A^2T^3/3! + ...}B (5th order approximation)
         Bx_temp = np.eye(len(A)) * Ts
         temp = A * Ts * Ts
         for i in range(10):
             Bx_temp = Bx_temp + temp / math.factorial(i+2)
             temp = np.dot(temp, A*Ts)
-        Bx = np.dot(Bx_temp, B)
+        Bd = np.dot(Bx_temp, B)
         
-        # Cx = same as continuous time
-        Cx = C
+        # Cd = same as continuous time
+        Cd = C
         
-        self.Ax = Ax
-        self.Bx = Bx
-        self.Cx = Cx
+        self.Ad = Ad
+        self.Bd = Bd
+        self.Cd = Cd
         self.Ts = Ts
         
     def lqr(self, Q, R):
@@ -195,7 +195,7 @@ class InvertedPendulum:
                 
         Qd = Q * self.Ts
         Rd = R * self.Ts
-        P, L, G = control.dare(self.Ax, self.Bx, Qd, Rd)
+        P, L, G = control.dare(self.Ad, self.Bd, Qd, Rd)
         return P, L, -G
         
     def eig(self, A):
@@ -204,5 +204,5 @@ class InvertedPendulum:
     
     def acker(self, pole):
         # Calculate the feedback gain using Ackermann's Pole Placement Method
-        G = -control.acker(self.Ax, self.Bx, pole)
+        G = -control.acker(self.Ad, self.Bd, pole)
         return G
