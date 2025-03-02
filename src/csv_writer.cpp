@@ -79,7 +79,7 @@ std::string getCurrentDateTime() {
     return ss.str();
 }
 
-void openCSVFile(const std::string &filename) {
+void openCSVFile(const std::string &filename, const std::string &header) {
     std::cout << "CSV try to open1." << std::endl;
     csvFile.open(filename);
     if (!csvFile.is_open()) {
@@ -88,6 +88,7 @@ void openCSVFile(const std::string &filename) {
     }
     std::cout << "CSV try to open2." << std::endl;
     std::signal(SIGINT, signalHandler);
+    csvFile << header;
     csvFile << "time,elapsed_time,theta_p,theta_p_dot,theta_w,theta_w_dot,"
                "theta_p_kf,theta_p_dot_kf,theta_w_kf,theta_w_dot_kf,log_motor_"
                "value,log_motor_direction,log_pwm_duty"

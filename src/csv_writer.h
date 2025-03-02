@@ -16,7 +16,7 @@ void console_write(float elapsed_time, float theta_p, float theta_p_dot,
                    float log_motor_value, int log_motor_direction,
                    float log_pwm_duty);
 std::string getCurrentDateTime();
-void openCSVFile(const std::string &filename);
+void openCSVFile(const std::string &filename, const std::string &header);
 void closeCSVFile();
 double getCurrentEpochTimeUTC();
 void createDirectoryIfNotExists(const std::string &directory);

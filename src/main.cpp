@@ -71,7 +71,7 @@ void send_udp_packet(int sockfd, struct sockaddr_in &servaddr,
            sizeof(servaddr));
 }
 
-void loadGainFromFile(const std::string &filename) {
+void loadGainFromFile(const std::string &filename, std::string &csvHeader) {
     std::ifstream file(filename);
     if (!file) {
         std::cerr << "Error: ファイル " << filename << " を開けませんでした。"
@@ -82,24 +82,28 @@ void loadGainFromFile(const std::string &filename) {
         json gain_json;
         file >> gain_json;
 
-        // std::cout << "File: ";
-        // std::cout << gain_json << " ";
-
         std::string type = gain_json["type"];
-        std::vector<double> Q = gain_json["Q"];
-        double R = gain_json["R"];
 
-        // Eigenvalue は [real, imag] の配列なのでペアに変換
-        std::vector<std::pair<double, double>> Eigenvalue;
-        for (const auto &ev : gain_json["Eigenvalue"]) {
-            Eigenvalue.emplace_back(ev[0], ev[1]); // (real, imag) のペア
+        // type が "LQR" なら Q, R を取得、それ以外なら適当な値をセット
+        std::vector<double> Q;
+        double R;
+        if (type == "LQR") {
+            Q = gain_json["Q"].get<std::vector<double>>();
+            R = gain_json["R"].get<double>();
+        } else {
+            Q = {0, 0, 0, 0}; // 適当な値
+            R = 0.0;
         }
 
-        // Gain の値を std::vector<double> で一時的に取得
+        // Eigenvalue は [real, imag] のペアに変換
+        std::vector<std::pair<double, double>> Eigenvalue;
+        for (const auto &ev : gain_json["Eigenvalue"]) {
+            Eigenvalue.emplace_back(ev[0], ev[1]);
+        }
+
+        // Gain の値を取得
         std::vector<double> gain_vector =
             gain_json["Gain"].get<std::vector<double>>();
-
-        // `Gain` (float[4]) にコピー
         if (gain_vector.size() == 4) {
             for (size_t i = 0; i < 4; ++i) {
                 Gain[i] = static_cast<float>(gain_vector[i]);
@@ -108,6 +112,24 @@ void loadGainFromFile(const std::string &filename) {
             std::cerr << "Error: Gain のサイズが 4 ではありません。"
                       << std::endl;
         }
+
+        // CSVのヘッダー情報を作成
+        std::ostringstream headerStream;
+        headerStream << "type," << type << "\n"
+                     << "Q," << Q[0] << "," << Q[1] << "," << Q[2] << ","
+                     << Q[3] << "\n"
+                     << "R," << R << "\n"
+                     << "Eigenvalue";
+        for (const auto &ev : Eigenvalue) {
+            headerStream << "," << ev.first << "+" << ev.second << "j";
+        }
+        headerStream << "\nGain";
+        for (double g : Gain) {
+            headerStream << "," << g;
+        }
+        headerStream << "\n";
+
+        csvHeader = headerStream.str(); // 変数に格納
 
     } catch (const json::exception &e) {
         std::cerr << "JSON パースエラー: " << e.what() << std::endl;
@@ -145,7 +167,8 @@ void setup() {
              theta_dot_variance);
 
     // gainの読み込み
-    loadGainFromFile(PARAM_DATA_DIR);
+    std::string csvHeader;
+    loadGainFromFile(PARAM_DATA_DIR, csvHeader);
 
     encoder_value = 0;
     motor_driver_init(pi);
@@ -163,7 +186,7 @@ void setup() {
                    << Gain[1] << "_" << Gain[2] << "_" << Gain[3] << "_MaxV"
                    << MAX_VOLTAGE << ".csv";
     std::string filename = filenameStream.str();
-    openCSVFile(filename);
+    openCSVFile(filename, csvHeader);
 
     gpio_write(pi, LED_R, 0);
     gpio_write(pi, LED_G, 0);
