@@ -6,7 +6,7 @@ import signal
 
 # you should set the location of the bin folder
 # Since the auto-start script is not executed with User=ubuntu, hardcode BASE_DIR as "/home/ubuntu".
-BASE_DIR = "/home/ubuntu/gcl-pendulum/bin/"
+BASE_DIR = "/usr/local/bin/gcl-pendulum/"
 PEN_DIR = os.path.join(BASE_DIR, "PENDULUM")
 PEN_CLEAN_DIR = os.path.join(BASE_DIR, "PENDULUM_CLEANUP")
 

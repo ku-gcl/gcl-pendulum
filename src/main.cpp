@@ -117,7 +117,7 @@ void setup() {
              theta_dot_variance);
 
     // gainの読み込み
-    loadGainFromFile("../param/gain.txt");
+    loadGainFromFile(PARAM_DATA_DIR);
 
     encoder_value = 0;
     motor_driver_init(pi);

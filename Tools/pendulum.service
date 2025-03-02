@@ -4,7 +4,7 @@ Description=Execution pendulum auto start script
 
 [Service]
 ExecStart=/usr/bin/python3 pendulum_auto_start_script.py
-WorkingDirectory=/home/ubuntu/gcl-pendulum/Tools
+WorkingDirectory=/usr/local/bin/gcl-pendulum
 
 [Install]
 WantedBy=multi-user.target

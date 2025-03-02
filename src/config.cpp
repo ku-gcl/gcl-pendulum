@@ -17,6 +17,7 @@ const double rad2deg = 180.0 / PI;        // ラジアンを度に変換する�
 const double deg2rad = PI / 180.0;
 // フォルダ名は最後に"/"を付けること
 std::string LOG_DATA_DIR = "/home/ubuntu/gcl-pendulum/data/";
+std::string PARAM_DATA_DIR = "/home/ubuntu/gcl-pendulum/param/gain.txt";
 
 int encoder_update_rate = 25; // usec
 int encoder_resolution = 100;

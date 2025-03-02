@@ -22,6 +22,7 @@ const int LED_G = 22;
 // 姿勢角がMAX_INCLINATION [rad] 以上になったら制御停止
 const float MAX_INCLINATION = PI / 12;
 extern std::string LOG_DATA_DIR;
+extern std::string PARAM_DATA_DIR;
 
 extern int sample_num;
 extern float meas_interval;

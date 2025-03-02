@@ -30,6 +30,11 @@ sudo systemctl daemon-reload
 sudo systemctl enable pigpiod.service
 
 
+# move pendulum_auto_start_scipt.py
+cd ~/
+sudo mkdir -p /usr/local/bin/gcl-pendulum
+sudo cp ~/gcl-pendulum/Tools/pendulum_auto_start_script.py /usr/local/bin/gcl-pendulum
+
 
 # Set auto-start script
 cd ~/gcl-pendulum
@@ -42,7 +47,6 @@ sudo systemctl enable pendulum.service
 
 
 # Compile
-cd ~/gcl-pendulum
-mkdir -p bin
-g++ -std=c++17 -o ~/gcl-pendulum/bin/PENDULUM ~/gcl-pendulum/src/*.cpp -lpigpiod_if2 -lrt -pthread
-g++ -o ~/gcl-pendulum/bin/PENDULUM_CLEANUP ~/gcl-pendulum/Tools/cleanup.cpp -lpigpiod_if2 -lrt
+sudo mkdir -p /usr/local/bin/gcl-pendulum
+sudo g++ -std=c++17 -o /usr/local/bin/gcl-pendulum/PENDULUM ~/gcl-pendulum/src/*.cpp -lpigpiod_if2 -lrt -pthread
+sudo g++ -o /usr/local/bin/gcl-pendulum/PENDULUM_CLEANUP ~/gcl-pendulum/Tools/cleanup.cpp -lpigpiod_if2 -lrt
