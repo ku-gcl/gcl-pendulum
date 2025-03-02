@@ -41,4 +41,3 @@ Please check instruction in [wiki](https://github.com/ku-gcl/gcl-pendulum/wiki).
 
 ## Reference
 - 別府 伸耕. 「月着陸船アポロに学ぶ確率統計コンピュータ」 トランジスタ技術, CQ出版, 2019年7月号.
-- 
