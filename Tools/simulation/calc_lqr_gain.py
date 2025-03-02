@@ -15,7 +15,7 @@ pend = InvertedPendulum()
 pend.calc_discrete_system()
 
 P, L, G = pend.lqr(Q, R)
-A_BK = pend.Ax + np.dot(pend.Bx, G)
+A_BK = pend.Ad + np.dot(pend.Bd, G)
 eigen_value, eigen_vector = pend.eig(A_BK)
 
 pole = L
