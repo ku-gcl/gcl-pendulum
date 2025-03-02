@@ -1,3 +1,12 @@
+//=========================================================
+// Inverted Pendulum with Kalman Filter
+// MPU board:  NUCLEO-F401RE
+// Accelerometer + Gyro sensor: BMX055
+// Motor driver: TA7291P x 2
+// 2019/03/01  N. Beppu
+// 2025/03/01  T. Shiotsuka
+//=========================================================
+
 #include <chrono>
 #include <fstream>
 #include <iomanip> // std::setprecision
