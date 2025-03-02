@@ -15,10 +15,10 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 # CSVファイルのパス
-csv_file = "../../data/log_2025-02-28_23-47-56_Gain_94.1_15.2_0.8_1.2_MaxV3.3.csv"
+csv_file = "../../data/log_2025-03-02_14-27-27_Gain_31.0_4.9_0.1_0.4_MaxV3.3.csv"
 
-# データを読み込む
-df = pd.read_csv(csv_file)
+# データを読み込む。最初の5行はゲイン情報などなので、スキップ
+df = pd.read_csv(csv_file, skiprows=5)
 
 # rad -> deg 変換（角度は deg, 角速度は deg/s に変換）
 df["theta_p"] = np.rad2deg(df["theta_p"])
