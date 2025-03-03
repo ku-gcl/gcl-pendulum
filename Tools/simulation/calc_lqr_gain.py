@@ -3,8 +3,11 @@ from InvertedPendulum import InvertedPendulum
 import numpy as np
 
 # LQR のパラメータ
+# Q = np.diag([10, 10, 1, 1])
+# R = 100.0
+
 Q = np.diag([10, 10, 1, 1])
-R = 100.0
+R = 1.0
 
 pend = InvertedPendulum()
 pend.calc_discrete_system()
