@@ -15,7 +15,8 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 # CSVファイルのパス
-csv_file = "../../data/log_2025-03-02_14-27-27_Gain_31.0_4.9_0.1_0.4_MaxV3.3.csv"
+# csv_file = "../../data/log_2025-03-02_14-27-27_Gain_31.0_4.9_0.1_0.4_MaxV3.3.csv"
+csv_file = "../../data/log_2025-03-02_15-35-25_Gain_31.0_4.9_0.1_0.4_MaxV3.3.csv"
 
 # データを読み込む。最初の5行はゲイン情報などなので、スキップ
 df = pd.read_csv(csv_file, skiprows=5)
