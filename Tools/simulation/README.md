@@ -1,6 +1,7 @@
 ## Install
 
 ```bash
+cd ~/gcl-pendulum/Tools
 pip install -r requirements.txt
 ```
 
