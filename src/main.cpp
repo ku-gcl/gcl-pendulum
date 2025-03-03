@@ -41,7 +41,8 @@ std::thread thread2;
 int SOCKET_PORT = 12345;
 // const char *SOCKET_IP = "192.168.1.200";
 // const char *SOCKET_IP = "192.168.11.23";
-const char *SOCKET_IP = "192.168.2.1";
+// const char *SOCKET_IP = "192.168.2.1";
+const char *SOCKET_IP = "224.0.0.1"; // サブネットのブロードキャストアドレス
 
 // sensor
 float theta;
@@ -57,10 +58,23 @@ int init_udp_socket(int &sockfd, struct sockaddr_in &servaddr, const char *ip,
         return -1;
     }
 
+    int broadcastEnable = 1;
+    if (setsockopt(sockfd, SOL_SOCKET, SO_BROADCAST, &broadcastEnable,
+                   sizeof(broadcastEnable)) < 0) {
+        perror("ブロードキャストオプション設定に失敗");
+        return 1;
+    }
+
     memset(&servaddr, 0, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
-    servaddr.sin_port = htons(port);
-    servaddr.sin_addr.s_addr = inet_addr(ip);
+    servaddr.sin_port =
+        htons(port); // 任意のポート番号（受信側と合わせる必要があります）
+    servaddr.sin_addr.s_addr = inet_addr("255.255.255.255");
+
+    // memset(&servaddr, 0, sizeof(servaddr));
+    // servaddr.sin_family = AF_INET;
+    // servaddr.sin_port = htons(port);
+    // servaddr.sin_addr.s_addr = inet_addr(ip);
 
     return 0;
 }
