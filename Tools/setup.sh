@@ -53,3 +53,8 @@ sudo systemctl enable pendulum.service
 sudo mkdir -p /usr/local/bin/gcl-pendulum
 sudo g++ -std=c++17 -o /usr/local/bin/gcl-pendulum/PENDULUM ~/gcl-pendulum/src/*.cpp -lpigpiod_if2 -lrt -pthread
 sudo g++ -o /usr/local/bin/gcl-pendulum/PENDULUM_CLEANUP ~/gcl-pendulum/Tools/cleanup.cpp -lpigpiod_if2 -lrt
+
+# Set gain.json
+cd ~/gcl-pendulum
+mkdir -p param
+cp sample/gain.json param/gain.json

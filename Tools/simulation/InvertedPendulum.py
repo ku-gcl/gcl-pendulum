@@ -1,6 +1,8 @@
 import numpy as np
 import math
 import control
+import os
+import json
 
 
 class InvertedPendulum:
@@ -167,8 +169,8 @@ class InvertedPendulum:
         Ad = np.zeros( (len(A), len(A[0])) )
         temp = np.eye(len(A))
         for i in range(10):
-        	Ad = Ad + temp / math.factorial(i)
-        	temp = np.dot(temp, (A*Ts))
+            Ad = Ad + temp / math.factorial(i)
+            temp = np.dot(temp, (A*Ts))
         
         #Bd = {IT + AT^2/2! + A^2T^3/3! + ...}B (5th order approximation)
         Bx_temp = np.eye(len(A)) * Ts
@@ -206,3 +208,10 @@ class InvertedPendulum:
         # Calculate the feedback gain using Ackermann's Pole Placement Method
         G = -control.acker(self.Ad, self.Bd, pole)
         return G
+    
+    def output_gain(self, file_path, gain_data):
+        # JSON ファイルに保存
+        dir_path = os.path.dirname(file_path)
+        os.makedirs(dir_path, exist_ok=True)
+        with open(file_path, "w") as f:
+            json.dump(gain_data, f, indent=4, separators=(",", ": "))

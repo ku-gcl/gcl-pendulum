@@ -1,4 +1,3 @@
-import json
 from InvertedPendulum import InvertedPendulum
 import numpy as np
 
@@ -37,5 +36,5 @@ gain_data = {
 }
 
 # JSON ファイルに保存
-with open("../../param/gain.json", "w") as f:
-    json.dump(gain_data, f, indent=4, separators=(",", ": "))
+file_path = "../../param/gain.json"
+pend.output_gain(file_path, gain_data)
