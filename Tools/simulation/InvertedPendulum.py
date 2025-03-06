@@ -87,9 +87,17 @@ class InvertedPendulum:
         print("------------------------------")
         print("Pendulum Parameters")
         print("m_pendulum = " + str(self.m_pendulum) + " (kg)")
+        print("The length between the center of gravity and the axis r_pendulum (m)")
         print("r_pendulum = " + str(self.r_pendulum) + " (m)")
         print("I_pendulum = " + str(self.I_pendulum) + " (kg.m^2)\n")
+        
+        print("------------------------------")
+        print("Rotator Parameters")
+        print("m_rotator = " + str(self.m_rotator) + " (kg)")
+        print("r_rotator = " + str(self.r_rotator) + " (m)")
+        print("Im = " + str(self.Im) + " (kg.m^2)\n")
 
+        print("------------------------------")
 
 
     def calc_continous_system(self):
