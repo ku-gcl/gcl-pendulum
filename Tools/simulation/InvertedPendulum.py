@@ -68,6 +68,9 @@ class InvertedPendulum:
         self.r_rotator = 0.0075
         # moment of inertia of the rotator
         self.Im = 0.5 * self.m_rotator * self.r_rotator ** 2
+        
+        # 車輪回転軸の粘性摩擦係数
+        self.c = self.gear_ratio**2 * self.kt * self.kb / self.Rm
 
         # LQRパラメータ
         self.Q = np.diag([10, 10, 10, 10])
