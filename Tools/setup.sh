@@ -41,7 +41,7 @@ sudo cp ~/gcl-pendulum/Tools/pendulum_auto_start_script.py /usr/local/bin/gcl-pe
 
 # Set auto-start script
 sudo apt install -y python3-pip
-pip3 install RPi.GPIO
+sudo pip3 install RPi.GPIO
 
 cd ~/gcl-pendulum
 sudo cp Tools/pendulum.service /etc/systemd/system/
