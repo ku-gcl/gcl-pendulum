@@ -2,6 +2,8 @@ from InvertedPendulum import InvertedPendulum
 import numpy as np
 
 # LQR のパラメータ
+# x=[振子角度, 振子角速度, 車輪角度, 車輪角速度] の順番
+
 # Q = np.diag([10, 10, 1, 1])
 # R = 100.0
 
