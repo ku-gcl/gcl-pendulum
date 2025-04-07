@@ -17,6 +17,9 @@ class InvertedPendulum:
         # gravitational acceleration
         self.g = 9.8    # [m/s^2]
         
+        # sampling time
+        self.Ts = 0.01  # [s]
+        
         # wheel (Tamiya sports tire set)
         self.m_wheel = 0.026
         self.r_wheel = 0.028
@@ -103,7 +106,7 @@ class InvertedPendulum:
         print("------------------------------")
 
 
-    def calc_continous_system(self):
+    def calc_continuous_system(self):
         g = self.g
         m_whole = self.m_whole
         
@@ -168,10 +171,10 @@ class InvertedPendulum:
         
         
     def calc_discrete_system(self):
-        self.calc_continous_system()
+        self.calc_continuous_system()
         
         # discrete
-        Ts = 0.01 # [s]
+        Ts = self.Ts
         A = self.A
         B = self.B
         C = self.C
@@ -199,7 +202,18 @@ class InvertedPendulum:
         self.Cd = Cd
         self.Ts = Ts
         
+    
     def lqr(self, Q, R):
+        # 
+        # return:
+        # P: solution of the Riccati equation
+        # L: eigenvalues
+        # G: gain
+                
+        P, L, G = control.care(self.A, self.B, Q, R)
+        return P, L, -G
+    
+    def dlqr(self, Q, R):
         # 
         # return:
         # P: solution of the Riccati equation
@@ -215,7 +229,26 @@ class InvertedPendulum:
         eigen_value, eigen_vector = np.linalg.eig(A)
         return eigen_value, eigen_vector
     
-    def acker(self, pole):
+    def c2d_poles(self, pole_c):
+        # Convert continuous poles "s" to discrete poles "z"
+        # z = e^(sT)
+        # s = ln(z)/T
+        pole_d = [np.exp(pole * self.Ts) for pole in pole_c]
+        return pole_d
+    
+    def d2c_poles(self, pole_d):
+        # Convert discrete poles "z" to continuous poles "s"
+        # s = ln(z)/T
+        # z = e^(pole * Ts)
+        pole_c = [np.log(pole) / self.Ts for pole in pole_d]
+        return pole_c
+    
+    def continuous_acker(self, pole):
+        # Calculate the feedback gain using Ackermann's Pole Placement Method
+        G = -control.acker(self.A, self.B, pole)
+        return G
+    
+    def discrete_acker(self, pole):
         # Calculate the feedback gain using Ackermann's Pole Placement Method
         G = -control.acker(self.Ad, self.Bd, pole)
         return G

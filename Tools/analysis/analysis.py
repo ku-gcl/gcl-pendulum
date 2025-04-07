@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 csv_file = "../../data/log_2025-03-02_15-35-25_Gain_31.0_4.9_0.1_0.4_MaxV3.3.csv"
 
 # データを読み込む。最初の5行はゲイン情報などなので、スキップ
-df = pd.read_csv(csv_file, skiprows=5)
+df = pd.read_csv(csv_file, skiprows=7)
 
 # rad -> deg 変換（角度は deg, 角速度は deg/s に変換）
 df["theta_p"] = np.rad2deg(df["theta_p"])

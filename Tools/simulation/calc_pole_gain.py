@@ -1,38 +1,43 @@
 from InvertedPendulum import InvertedPendulum
 import numpy as np
 
-# 極を入力
-pole = np.array([0.9945874558754403, 
-                 0.916229398609705, 
-                 0.9459616842284228+0.005949675320093892j,
-                 0.9459616842284228-0.005949675320093892j])
+# 連続系の極を入力（負の値）
+pole_c = np.array([-0.5427245011638713,
+                -8.748851049822434,
+                -5.553343483855886+0.6289469190780128j,
+                -5.553343483855886-0.6289469190780128j])
 
 pend = InvertedPendulum()
 pend.calc_discrete_system()
 
-G = pend.acker(pole)
-eigen_value = pole
+# gain and eigen value of the continuous system
+Gc = pend.continuous_acker(pole_c)
+eig_c = [[ev.real, ev.imag] for ev in pole_c]    # 複素数を実数・虚数に分解
 
-# 複素数を実数・虚数に分解
-eigen_value_serializable = [[ev.real, ev.imag] for ev in eigen_value]
+# gain and eigen value of the discrete system
+pole_d = pend.c2d_poles(pole_c)
+Gd = pend.discrete_acker(pole_d)
+eig_d = [[ev.real, ev.imag] for ev in pole_d]
 
 print("**********************************")
 print("*        Calculation Result      *")
 print("**********************************")
-print("Gain")
-print(G)
+print("Gain of the continuous system")
+print(Gc)
 print("")
 print("----------------------------------")
-print("Eigenvalue of the stable system")
-print(", ".join(map(str, eigen_value)))
+print("Eigenvalue of the stable system (continuous system)")
+print(", ".join(map(str, eig_c)))
 print("")
 print("----------------------------------")
 
 # JSON データを作成
 gain_data = {
     "type": "Pole",
-    "Eigenvalue": eigen_value_serializable,  # 複素数を実数・虚数のリストに変換
-    "Gain": G.flatten().tolist()  # 1D 配列に変換してリスト化
+    "Eigenvalue_continuous": eig_c,
+    "Eigenvalue_discrete": eig_d,
+    "Gain_continuous": Gc.flatten().tolist(),  # 1D 配列に変換してリスト化, (not used for C++ code)
+    "Gain_discrete": Gd.flatten().tolist(),       # used for C++ code
 }
 
 # JSON ファイルに保存
