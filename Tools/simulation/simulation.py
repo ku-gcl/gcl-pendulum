@@ -16,7 +16,7 @@ Q = np.array([[10, 0, 0, 0],
               [0, 0, 1, 0], 
               [0, 0, 0, 1]])
 R = 100.0
-P, L, Gain = pend.lqr(Q, R)
+P, L, Gain = pend.dlqr(Q, R)
 A_BK = pend.Ad + np.dot(pend.Bd, Gain)
 Ts = pend.Ts
 
