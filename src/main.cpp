@@ -105,7 +105,7 @@ void loadGainFromFile(const std::string &filename, std::string &csvHeader) {
             Q = gain_json["Q"].get<std::vector<double>>();
             R = gain_json["R"].get<double>();
         } else {
-            Q = {0, 0, 0, 0}; // 適当な値
+            Q.assign(4, 0.0); // Q = {0, 0, 0, 0};と同じ
             R = 0.0;
         }
 
