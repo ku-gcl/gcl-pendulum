@@ -220,7 +220,7 @@ C = numpy.array(C)
 #matrix summary (continuous time)
 #-------------------------------------------------
 print("******************************")
-print("*  Matrix (continous time)   *")
+print("*  Matrix (continuous time)   *")
 print("******************************")
 print("Matrix A (continuous time)")
 print(A)

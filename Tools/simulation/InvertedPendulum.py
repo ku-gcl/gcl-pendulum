@@ -17,6 +17,9 @@ class InvertedPendulum:
         # gravitational acceleration
         self.g = 9.8    # [m/s^2]
         
+        # sampling time
+        self.Ts = 0.01  # [s]
+        
         # wheel (Tamiya sports tire set)
         self.m_wheel = 0.026
         self.r_wheel = 0.028
@@ -103,7 +106,7 @@ class InvertedPendulum:
         print("------------------------------")
 
 
-    def calc_continous_system(self):
+    def calc_continuous_system(self):
         g = self.g
         m_whole = self.m_whole
         
@@ -168,10 +171,10 @@ class InvertedPendulum:
         
         
     def calc_discrete_system(self):
-        self.calc_continous_system()
+        self.calc_continuous_system()
         
         # discrete
-        Ts = 0.01 # [s]
+        Ts = self.Ts
         A = self.A
         B = self.B
         C = self.C
@@ -199,7 +202,18 @@ class InvertedPendulum:
         self.Cd = Cd
         self.Ts = Ts
         
+    
     def lqr(self, Q, R):
+        # 
+        # return:
+        # P: solution of the Riccati equation
+        # L: eigenvalues
+        # G: gain
+                
+        P, L, G = control.care(self.A, self.B, Q, R)
+        return P, L, -G
+    
+    def dlqr(self, Q, R):
         # 
         # return:
         # P: solution of the Riccati equation
