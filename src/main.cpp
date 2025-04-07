@@ -110,14 +110,31 @@ void loadGainFromFile(const std::string &filename, std::string &csvHeader) {
         }
 
         // Eigenvalue は [real, imag] のペアに変換
-        std::vector<std::pair<double, double>> Eigenvalue;
-        for (const auto &ev : gain_json["Eigenvalue"]) {
-            Eigenvalue.emplace_back(ev[0], ev[1]);
+        std::vector<std::pair<double, double>> Eigenvalue_c;
+        for (const auto &ev : gain_json["Eigenvalue_continuous"]) {
+            Eigenvalue_c.emplace_back(ev[0], ev[1]);
+        }
+
+        std::vector<std::pair<double, double>> Eigenvalue_d;
+        for (const auto &ev : gain_json["Eigenvalue_discrete"]) {
+            Eigenvalue_d.emplace_back(ev[0], ev[1]);
         }
 
         // Gain の値を取得
+        float Gain_c[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+        std::vector<double> gain_vector_c =
+            gain_json["Gain_continuous"].get<std::vector<double>>();
+        if (gain_vector_c.size() == 4) {
+            for (size_t i = 0; i < 4; ++i) {
+                Gain_c[i] = static_cast<float>(gain_vector_c[i]);
+            }
+        } else {
+            std::cerr << "Error: Gain のサイズが 4 ではありません。"
+                      << std::endl;
+        }
+
         std::vector<double> gain_vector =
-            gain_json["Gain"].get<std::vector<double>>();
+            gain_json["Gain_discrete"].get<std::vector<double>>();
         if (gain_vector.size() == 4) {
             for (size_t i = 0; i < 4; ++i) {
                 Gain[i] = static_cast<float>(gain_vector[i]);
@@ -133,8 +150,16 @@ void loadGainFromFile(const std::string &filename, std::string &csvHeader) {
                      << "Q," << Q[0] << "," << Q[1] << "," << Q[2] << ","
                      << Q[3] << "\n"
                      << "R," << R << "\n"
-                     << "Eigenvalue";
-        for (const auto &ev : Eigenvalue) {
+                     << "Eigenvalue (Continuous)";
+        for (const auto &ev : Eigenvalue_c) {
+            headerStream << "," << ev.first << "+" << ev.second << "j";
+        }
+        headerStream << "\nGain (Continuous)";
+        for (double g : Gain_c) {
+            headerStream << "," << g;
+        }
+        << "Eigenvalue (Discrete)";
+        for (const auto &ev : Eigenvalue_d) {
             headerStream << "," << ev.first << "+" << ev.second << "j";
         }
         headerStream << "\nGain";
