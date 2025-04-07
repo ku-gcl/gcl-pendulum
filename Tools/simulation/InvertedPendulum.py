@@ -229,6 +229,20 @@ class InvertedPendulum:
         eigen_value, eigen_vector = np.linalg.eig(A)
         return eigen_value, eigen_vector
     
+    def c2d_poles(self, pole_c):
+        # Convert continuous poles "s" to discrete poles "z"
+        # z = e^(sT)
+        # s = ln(z)/T
+        pole_d = [np.exp(pole * self.Ts) for pole in pole_c]
+        return pole_d
+    
+    def d2c_poles(self, pole_d):
+        # Convert discrete poles "z" to continuous poles "s"
+        # s = ln(z)/T
+        # z = e^(pole * Ts)
+        pole_c = [np.log(pole) / self.Ts for pole in pole_d]
+        return pole_c
+    
     def continuous_acker(self, pole):
         # Calculate the feedback gain using Ackermann's Pole Placement Method
         G = -control.acker(self.A, self.B, pole)
