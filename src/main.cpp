@@ -150,22 +150,26 @@ void loadGainFromFile(const std::string &filename, std::string &csvHeader) {
                      << "Q," << Q[0] << "," << Q[1] << "," << Q[2] << ","
                      << Q[3] << "\n"
                      << "R," << R << "\n"
-                     << "Eigenvalue (Continuous)";
+                     << "Eigenvalue (Continuous system)";
         for (const auto &ev : Eigenvalue_c) {
             headerStream << "," << ev.first << "+" << ev.second << "j";
         }
-        headerStream << "\nGain (Continuous)";
+
+        headerStream << "\nGain (Continuous system)";
         for (double g : Gain_c) {
             headerStream << "," << g;
         }
-        << "Eigenvalue (Discrete)";
+        
+        headerStream << "\nEigenvalue (Discrete system)";
         for (const auto &ev : Eigenvalue_d) {
             headerStream << "," << ev.first << "+" << ev.second << "j";
         }
-        headerStream << "\nGain";
+
+        headerStream << "\nGain (Discrete system)";
         for (double g : Gain) {
             headerStream << "," << g;
         }
+
         headerStream << "\n";
 
         csvHeader = headerStream.str(); // 変数に格納
