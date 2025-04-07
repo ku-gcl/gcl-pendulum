@@ -210,7 +210,7 @@ class InvertedPendulum:
         # L: eigenvalues
         # G: gain
                 
-        P, L, G = control.dare(self.A, self.B, Q, R)
+        P, L, G = control.care(self.A, self.B, Q, R)
         return P, L, -G
     
     def dlqr(self, Q, R):
