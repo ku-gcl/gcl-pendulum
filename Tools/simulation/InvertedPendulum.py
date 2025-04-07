@@ -229,7 +229,12 @@ class InvertedPendulum:
         eigen_value, eigen_vector = np.linalg.eig(A)
         return eigen_value, eigen_vector
     
-    def acker(self, pole):
+    def continuous_acker(self, pole):
+        # Calculate the feedback gain using Ackermann's Pole Placement Method
+        G = -control.acker(self.A, self.B, pole)
+        return G
+    
+    def discrete_acker(self, pole):
         # Calculate the feedback gain using Ackermann's Pole Placement Method
         G = -control.acker(self.Ad, self.Bd, pole)
         return G
