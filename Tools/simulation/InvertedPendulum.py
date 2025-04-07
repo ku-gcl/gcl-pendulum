@@ -106,7 +106,7 @@ class InvertedPendulum:
         print("------------------------------")
 
 
-    def calc_continous_system(self):
+    def calc_continuous_system(self):
         g = self.g
         m_whole = self.m_whole
         
@@ -171,7 +171,7 @@ class InvertedPendulum:
         
         
     def calc_discrete_system(self):
-        self.calc_continous_system()
+        self.calc_continuous_system()
         
         # discrete
         Ts = self.Ts
@@ -202,7 +202,18 @@ class InvertedPendulum:
         self.Cd = Cd
         self.Ts = Ts
         
+    
     def lqr(self, Q, R):
+        # 
+        # return:
+        # P: solution of the Riccati equation
+        # L: eigenvalues
+        # G: gain
+                
+        P, L, G = control.dare(self.A, self.B, Q, R)
+        return P, L, -G
+    
+    def dlqr(self, Q, R):
         # 
         # return:
         # P: solution of the Riccati equation
