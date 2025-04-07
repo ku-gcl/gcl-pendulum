@@ -17,6 +17,9 @@ class InvertedPendulum:
         # gravitational acceleration
         self.g = 9.8    # [m/s^2]
         
+        # sampling time
+        self.Ts = 0.01  # [s]
+        
         # wheel (Tamiya sports tire set)
         self.m_wheel = 0.026
         self.r_wheel = 0.028
@@ -171,7 +174,7 @@ class InvertedPendulum:
         self.calc_continous_system()
         
         # discrete
-        Ts = 0.01 # [s]
+        Ts = self.Ts
         A = self.A
         B = self.B
         C = self.C
