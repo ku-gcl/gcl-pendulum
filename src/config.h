@@ -42,6 +42,7 @@ extern float theta_update_interval;
 extern int th1_dura;
 extern float theta_data_predict[2][1];
 extern float theta_data[2][1];
+extern float theta_p_sensor;
 extern float P_theta_predict[2][2];
 extern float P_theta[2][2];
 extern float A_theta[2][2];
