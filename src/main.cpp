@@ -44,12 +44,6 @@ int SOCKET_PORT = 12345;
 // const char *SOCKET_IP = "192.168.2.1";
 const char *SOCKET_IP = "224.0.0.1"; // サブネットのブロードキャストアドレス
 
-// sensor
-float theta;
-float theta_dot_gyro;
-// float xAccl = 0.0f, yAccl = 0.0f, zAccl = 0.0f;
-// float xGyro = 0.0f, yGyro = 0.0f, zGyro = 0.0f;
-
 int init_udp_socket(int &sockfd, struct sockaddr_in &servaddr, const char *ip,
                     int port) {
     sockfd = socket(AF_INET, SOCK_DGRAM, 0);
@@ -159,7 +153,7 @@ void loadGainFromFile(const std::string &filename, std::string &csvHeader) {
         for (double g : Gain_c) {
             headerStream << "," << g;
         }
-        
+
         headerStream << "\nEigenvalue (Discrete system)";
         for (const auto &ev : Eigenvalue_d) {
             headerStream << "," << ev.first << "+" << ev.second << "j";
