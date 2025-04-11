@@ -32,6 +32,7 @@ int th1_dura =
     1000000 * 1.0f / theta_update_freq; // 2500usec for theta_update_freq=400
 float theta_data_predict[2][1] = {{0}, {0}};
 float theta_data[2][1] = {{0}, {0}};
+float theta_p_sensor = 0.0f;
 float P_theta_predict[2][2] = {{1, 0}, {0, 0}};
 float P_theta[2][2] = {{0}};
 float A_theta[2][2] = {{1, -theta_update_interval}, {0, 1}};
