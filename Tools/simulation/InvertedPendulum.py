@@ -201,7 +201,28 @@ class InvertedPendulum:
         self.Bd = Bd
         self.Cd = Cd
         self.Ts = Ts
+
+        print("******************************")
+        print("*        Ac, Bc, Cc          *")
+        print("******************************")
+        print("System Matrix")
+        print("A = \n" + str(self.A))
+        print("B = \n" + str(self.B))
+        print("C = \n" + str(self.C))
         
+        print("******************************")
+        print("*    Pole of the system      *")
+        print("******************************")
+        print("Eigenvalue of A = \n" + str(self.eig(self.A)[0]))
+        
+        print("******************************")
+        print("*        Ad, Bd, Cd, Ts          *")
+        print("******************************")
+        print("System Matrix")
+        print("Ad = \n" + str(self.Ad))
+        print("Bd = \n" + str(self.Bd))
+        print("Cd = \n" + str(self.Cd))
+        print("Ts = \n" + str(self.Ts))
     
     def lqr(self, Q, R):
         # 
