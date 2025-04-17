@@ -5,6 +5,8 @@ Software version 1 published on January 8, 2025. [Download here](https://github.
 
 This repository contains the source code for controlling an inverted pendulum.
 
+For more details, please refer to the [wiki](https://github.com/ku-gcl/gcl-pendulum/wiki) for instructions.
+
  <img src="document/figure/pendulum.jpg" width="30%" />
 
  
@@ -38,9 +40,6 @@ git clone https://github.com/ku-gcl/gcl-pendulum.git
 cd ~/gcl-pendulum
 source Tools/setup.sh
 ```
-
-### More detail
-Please check instruction in [wiki](https://github.com/ku-gcl/gcl-pendulum/wiki).
 
 ## Reference
 - 別府 伸耕. 「月着陸船アポロに学ぶ確率統計コンピュータ」 トランジスタ技術, CQ出版株式会社, 2019年7月号.
