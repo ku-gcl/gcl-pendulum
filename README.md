@@ -7,6 +7,7 @@ This repository contains the source code for controlling an inverted pendulum.
 
  <img src="document/figure/pendulum.jpg" width="30%" />
 
+ 
 <!--![pendulum](document/figure/pendulum.jpg)-->
 
 ## Contributors
@@ -21,6 +22,8 @@ This repository contains the source code for controlling an inverted pendulum.
 - [Katoh Sohta](https://github.com/KATOHSOHTA)
   - Electronic Circuit Design
 
+
+https://github.com/user-attachments/assets/9a3c0983-a4c0-4cbf-9135-722551887eb2
 
 
 ## Setup
