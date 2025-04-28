@@ -54,8 +54,6 @@ class InvertedPendulum:
         self.I_circuit = (1/12) * self.m_circuit * (self.x_circuit**2 + self.y_circuit**2) + self.m_circuit * self.d_circuit**2
 
         # Whole body
-        # self.m_pendulum = 0.208
-        # self.I_pendulum = 0.0018407151666666667
         self.m_pendulum = self.m_gear + self.m_battery + self.m_plate + self.m_circuit
         self.I_pendulum = self.I_gear + self.I_battery + self.I_plate + self.I_circuit
         # The length between the center of gravity and the axis (m)
