@@ -54,10 +54,10 @@ class InvertedPendulum:
         self.I_circuit = (1/12) * self.m_circuit * (self.x_circuit**2 + self.y_circuit**2) + self.m_circuit * self.d_circuit**2
 
         # Whole body
-        self.m_pendulum = 0.208
-        self.I_pendulum = 0.0018407151666666667
-        # self.m_pendulum = self.m_gear + self.m_battery + self.m_plate + self.m_circuit
-        # self.I_pendulum = self.I_gear + self.I_battery + self.I_plate + self.I_circuit
+        # self.m_pendulum = 0.208
+        # self.I_pendulum = 0.0018407151666666667
+        self.m_pendulum = self.m_gear + self.m_battery + self.m_plate + self.m_circuit
+        self.I_pendulum = self.I_gear + self.I_battery + self.I_plate + self.I_circuit
         # The length between the center of gravity and the axis (m)
         self.r_pendulum = math.sqrt(self.I_pendulum / self.m_pendulum)
         
@@ -129,15 +129,21 @@ class InvertedPendulum:
                 + I_wheel + gear_ratio ** 2 * Im)
         
         d2 = (m_whole * r_wheel ** 2
-                + m_pendulum * r_wheel * r_pendulum + I_wheel)
+                + m_pendulum * r_wheel * r_pendulum + I_wheel + Im * gear_ratio)
+        
+        d3 = d2
         
         d4 = (m_whole * r_wheel ** 2 
                 + 2 * m_pendulum * r_wheel * r_pendulum 
                 + m_pendulum * r_pendulum ** 2
-                + I_pendulum + I_wheel)
+                + I_pendulum + I_wheel + Im)
         
-        d3 = d2
-                
+        # print("Inverted Pendulum Parameters")
+        # print("d1 = " + str(d1))
+        # print("d2 = " + str(d2))
+        # print("d3 = " + str(d3))
+        # print("d4 = " + str(d4))
+        
         det = d2 * d3 - d1 * d4
         a11 = (-d1 * m_pendulum * g * r_pendulum) / det
         a12 = (-d3 * gear_ratio ** 2 * kt * kb / Rm) / det
