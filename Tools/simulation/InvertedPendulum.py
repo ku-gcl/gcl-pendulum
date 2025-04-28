@@ -54,8 +54,10 @@ class InvertedPendulum:
         self.I_circuit = (1/12) * self.m_circuit * (self.x_circuit**2 + self.y_circuit**2) + self.m_circuit * self.d_circuit**2
 
         # Whole body
-        self.m_pendulum = self.m_gear + self.m_battery + self.m_plate + self.m_circuit
-        self.I_pendulum = self.I_gear + self.I_battery + self.I_plate + self.I_circuit
+        self.m_pendulum = 0.208
+        self.I_pendulum = 0.0018407151666666667
+        # self.m_pendulum = self.m_gear + self.m_battery + self.m_plate + self.m_circuit
+        # self.I_pendulum = self.I_gear + self.I_battery + self.I_plate + self.I_circuit
         # The length between the center of gravity and the axis (m)
         self.r_pendulum = math.sqrt(self.I_pendulum / self.m_pendulum)
         
@@ -123,39 +125,38 @@ class InvertedPendulum:
         kb = self.kb
         Rm = self.Rm
         
-        a11_temp = (m_whole * r_wheel ** 2 
-                    + 2 * m_pendulum * r_wheel * r_pendulum 
-                    + m_pendulum * r_pendulum ** 2
-                    + I_pendulum + I_wheel)
+        d1 = (m_whole * r_wheel ** 2 
+                + I_wheel + gear_ratio ** 2 * Im)
         
-        a12_temp = (m_whole * r_wheel ** 2
-                    + m_pendulum * r_wheel * r_pendulum + I_wheel)
+        d2 = (m_whole * r_wheel ** 2
+                + m_pendulum * r_wheel * r_pendulum + I_wheel)
         
-        a21_temp = (m_whole * r_wheel ** 2 
-                    + m_pendulum * r_wheel * r_pendulum + I_wheel)
-
-        a22_temp = (m_whole * r_wheel ** 2 
-                    + I_wheel + gear_ratio ** 2 * Im)
+        d4 = (m_whole * r_wheel ** 2 
+                + 2 * m_pendulum * r_wheel * r_pendulum 
+                + m_pendulum * r_pendulum ** 2
+                + I_pendulum + I_wheel)
         
-        det = a11_temp*a22_temp - a12_temp*a21_temp
-        a11 = (a22_temp * m_pendulum * g * r_pendulum) / det
-        a12 = (a12_temp * gear_ratio ** 2 * kt * kb / Rm) / det
-        a21 = (-a21_temp * m_pendulum * g * r_pendulum) / det
-        a22 = (-a11_temp * gear_ratio ** 2 * kt * kb / Rm) / det
+        d3 = d2
+                
+        det = d2 * d3 - d1 * d4
+        a11 = (-d1 * m_pendulum * g * r_pendulum) / det
+        a12 = (-d3 * gear_ratio ** 2 * kt * kb / Rm) / det
+        a41 = (d2 * m_pendulum * g * r_pendulum) / det
+        a44 = (d4 * gear_ratio ** 2 * kt * kb / Rm) / det
         
-        b21  = (-a12_temp * gear_ratio * kt / Rm) / det
-        b24  = (a11_temp * gear_ratio * kt / Rm) / det
+        b2  = (d3 * gear_ratio * kt / Rm) / det
+        b4  = (d4 * gear_ratio * kt / Rm) / det
         
         # continuous time
         A = [[0, 1, 0, 0],
              [a11, 0, 0, a12],
              [0, 0, 0, 1],
-             [a21, 0, 0, a22]]
+             [a41, 0, 0, a44]]
         
         B = [[0],
-             [b21],
+             [b2],
              [0],
-             [b24]]
+             [b4]]
         
         C = [[1, 0, 0, 0],
              [0, 1, 0, 0],
