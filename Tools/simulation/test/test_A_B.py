@@ -71,7 +71,41 @@ b2 = d3*a /delta
 b4 = -d4*a/delta
 B = np.array([[0], [b2], [0], [b4]])
 
+C = np.array([[1, 0, 0, 0],
+              [0, 1, 0, 0],
+              [0, 0, 1, 0],
+              [0, 0, 0, 1]])
+
 print("--------------")
 print(A)
 print("--------------")
 print(B)
+
+
+##### 課題1: 安定性判別
+eigen_value, eigen_vector = np.linalg.eig(A)
+print("Eigen Value")
+print(eigen_value)
+# Eigen Value
+# [ 0.          6.35975209 -7.51082309 -4.85609606]
+# 非負の固有値があるため不安定
+
+
+##### 課題2: 可制御性、可観測性の判別
+# 可制御性
+rank = np.linalg.matrix_rank(np.hstack([B, A @ B, A @ A @ B, A @ A @ A @ B]))
+print("Controllability")
+print(rank)
+print("rank = " + str(rank))
+print("rank = 4") 
+# rank = 4で、行フルランクなので可制御
+
+# 可観測性
+co = np.vstack([C, C @ A, C @ A @ A, C @ A @ A @ A])
+rank = np.linalg.matrix_rank(np.vstack([C, C @ A, C @ A @ A, C @ A @ A @ A]))
+print("Observability")
+print(rank)
+print("rank = " + str(rank))
+print(co)
+# 16x4の行列で列フルランクであれば可観測
+# rank = 4なので、可観測
