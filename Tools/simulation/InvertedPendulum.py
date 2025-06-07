@@ -31,7 +31,7 @@ class InvertedPendulum:
         self.y_gear = 0.060
         self.d_gear = 0.020
         self.I_gear = (1/12) * self.m_gear * (self.x_gear**2 + self.y_gear**2) + self.m_gear * self.d_gear**2
-        self.gear_ratio = 64.8
+        self.gear_ratio = 50
 
         # Chassis (Tamiya universal plate L)
         self.m_plate = 0.080 / 2
@@ -285,3 +285,35 @@ class InvertedPendulum:
         os.makedirs(dir_path, exist_ok=True)
         with open(file_path, "w") as f:
             json.dump(gain_data, f, indent=4, separators=(",", ": "))
+
+    def array_to_cpp(self, matrix, matrix_name):
+        rows, cols = len(matrix), len(matrix[0])
+        
+        # データ型と変数宣言の作成
+        cpp_declaration = f"float {matrix_name}[{rows}][{cols}] = {{"
+        
+        for i in range(rows):
+            if i == 0:
+                cpp_declaration += "\n    {"
+            else:
+                cpp_declaration += ",\n    {"
+                
+            for j in range(cols):
+                cpp_declaration += str(matrix[i][j])
+                if j < cols - 1:
+                    cpp_declaration += ", "
+            cpp_declaration += "}"
+        
+        cpp_declaration += "};"
+        return cpp_declaration
+
+    def print_array_to_cpp(self):
+        # Print the matrices in C++ format with proper variable names and comments
+        print("// matrix A_x")
+        print(self.array_to_cpp(self.Ad, "A_x"))
+        print()
+        print("// matrix B_x") 
+        print(self.array_to_cpp(self.Bd, "B_x"))
+        print()
+        print("// matrix C_x")
+        print(self.array_to_cpp(self.Cd, "C_x"))

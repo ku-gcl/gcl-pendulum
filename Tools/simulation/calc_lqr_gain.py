@@ -44,6 +44,11 @@ print(", ".join(map(str, eig_c)))
 print("")
 print("----------------------------------")
 
+print("**********************************")
+print("*        Paste to config.cpp      *")
+print("**********************************")
+pend.print_array_to_cpp()
+
 # JSON データを作成
 gain_data = {
     "type": "LQR",
