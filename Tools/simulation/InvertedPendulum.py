@@ -123,40 +123,34 @@ class InvertedPendulum:
         kb = self.kb
         Rm = self.Rm
         
-        d1 = (m_whole * r_wheel ** 2 
+        d1 = (m_whole * r_wheel ** 2
                 + I_wheel + gear_ratio ** 2 * Im)
-        
+
         d2 = (m_whole * r_wheel ** 2
-                + m_pendulum * r_wheel * r_pendulum + I_wheel + Im * gear_ratio)
-        
+                + m_pendulum * r_wheel * r_pendulum + I_wheel)
+
         d3 = d2
-        
-        d4 = (m_whole * r_wheel ** 2 
-                + 2 * m_pendulum * r_wheel * r_pendulum 
+
+        d4 = (m_whole * r_wheel ** 2
+                + 2 * m_pendulum * r_wheel * r_pendulum
                 + m_pendulum * r_pendulum ** 2
-                + I_pendulum + I_wheel + Im)
-        
-        # print("Inverted Pendulum Parameters")
-        # print("d1 = " + str(d1))
-        # print("d2 = " + str(d2))
-        # print("d3 = " + str(d3))
-        # print("d4 = " + str(d4))
-        
+                + I_pendulum + I_wheel)
+
         det = d2 * d3 - d1 * d4
         a11 = (-d1 * m_pendulum * g * r_pendulum) / det
         a12 = (-d3 * gear_ratio ** 2 * kt * kb / Rm) / det
         a41 = (d2 * m_pendulum * g * r_pendulum) / det
         a44 = (d4 * gear_ratio ** 2 * kt * kb / Rm) / det
-        
+
         b2  = (d3 * gear_ratio * kt / Rm) / det
-        b4  = (d4 * gear_ratio * kt / Rm) / det
-        
+        b4  = (-d4 * gear_ratio * kt / Rm) / det
+
         # continuous time
         A = [[0, 1, 0, 0],
              [a11, 0, 0, a12],
              [0, 0, 0, 1],
              [a41, 0, 0, a44]]
-        
+
         B = [[0],
              [b2],
              [0],
