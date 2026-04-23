@@ -6,13 +6,14 @@
 
 int pi;                                   // raspberry pi
 const double PI = 3.14159265358979323846; // 円周率
-const double rad2deg = 180.0 / PI; // ラジアンを度に変換する定数
+const double rad2deg = 180.0 / PI;        // ラジアンを度に変換する定数
 
 int ENC_PIN1 = 24; // A
 int ENC_PIN2 = 23; // B
 int enc_syn = 1;
 int encoder_update_rate = 25; // usec
-int encoder_resolution = 100;
+// int encoder_resolution = 100;
+int encoder_resolution = 350;
 int encoder_value = 0;
 int table[16] = {0, 1, -1, 0, -1, 0, 0, 1, 1, 0, 0, -1, 0, -1, 1, 0};
 int code;
